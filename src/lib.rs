@@ -56,7 +56,7 @@ impl Board{
     }
 
     
-    pub fn winning_move(&self){
+    pub fn winning_move(&self) -> Option<(usize, usize)>{
         for r in 0..self.height{
             for c in 0..self.width{
                 if r == 0 && c==0{
@@ -64,8 +64,12 @@ impl Board{
                 }
                 let mut new_board = self.clone();
                 new_board.chomp(r,c);
+                if new_board.squares[0][0]{
+                    return Some((r,c));
+                }
             }
         }
+        return None
     }
 
 }
