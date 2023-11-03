@@ -44,12 +44,12 @@ impl Board{
             }
         }
         else if row< self.width && col >= self.height{
-            for r in row..self.width{
+            for r in row..self.height{
                 self.squares[r][col] = false;
             }
         }
         else{
-            for c in col..self.height{
+            for c in col..self.width{
                 self.squares[row][c] = false;
             }
         }
