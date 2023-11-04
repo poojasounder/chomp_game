@@ -46,6 +46,19 @@ impl Board {
         }
     }
 
+    pub fn chomp_furthest_right(&mut self){
+        'outer:for r in (0..self.height).rev(){
+            for c in (0..self.width).rev(){
+                println!("{}",r);
+                println!("{}",c);
+                if self.squares[r][c]{
+                    println!("hi");
+                    self.squares[r][c] = false;
+                    break 'outer;
+                }
+            }
+        }
+    }
     pub fn winning_move(&self) -> Option<(usize, usize)> {
         // Check whether the board state is already lost.
         //If so, then there is no winning move

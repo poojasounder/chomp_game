@@ -46,6 +46,8 @@ fn main() {
             Board::chomp(&mut board, winning_move.0, winning_move.1);
         };
 
+        Board::print_board(&board);
+        Board::chomp_furthest_right(&mut board);
         // Otherwise, stall by chomping as little as possible
 
         // display the board again after the AI played
