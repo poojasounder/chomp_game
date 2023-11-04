@@ -60,6 +60,23 @@ impl Board{
         return None
     }
 
+    pub fn is_game_over(&self) -> bool{
+        let mut count = self.width * self.height;
+        for i in 0..self.height{
+            for j in 0..self.width{
+                if !self.squares[i][j]{
+                    count -= 1;
+                }
+
+            }
+        }
+        
+        if count == 1 && self.squares[0][0]{
+            return true;
+        }
+        return false;
+    }
+
 }
 
 
