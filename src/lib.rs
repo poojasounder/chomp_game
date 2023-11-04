@@ -13,7 +13,7 @@ impl Board {
     pub fn create_board(width: usize, height: usize) -> Self {
         assert!(
             width <= MAX_WIDTH && height <= MAX_HEIGHT,
-            "Width must be lesser than or equal to 4 and Height must be lesser than or equal to 5"
+            "Width must be lesser than or equal to 5 and Height must be lesser than or equal to 4"
         );
 
         // setting all the squares to true initially
@@ -46,13 +46,12 @@ impl Board {
         }
     }
 
+    // Function to chomp the furthest right piece in the lowermost nonempty row
+    // If no winning move is found
     pub fn chomp_furthest_right(&mut self){
         'outer:for r in (0..self.height).rev(){
             for c in (0..self.width).rev(){
-                println!("{}",r);
-                println!("{}",c);
                 if self.squares[r][c]{
-                    println!("hi");
                     self.squares[r][c] = false;
                     break 'outer;
                 }
@@ -107,6 +106,13 @@ impl Board {
         // if there is only one square left and it is the upper-left square,
         // return true else, return false
         if count == 1 && self.squares[0][0] {
+            return true;
+        }
+        return false;
+    }
+
+    pub fn check_user_input(&self, row:usize, col:usize) -> bool{
+        if self.squares[row][col] && row <= self.height-1 && col <= self.width-1{
             return true;
         }
         return false;
