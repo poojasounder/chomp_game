@@ -34,15 +34,17 @@ fn main() {
             .parse()
             .unwrap();
 
-        while Board::check_user_input(&board,user_move_row,user_move_col) == false{
-            user_move_row = input!("Invalid Input!!! Enter a row for the square you want to remove: ")
-            .trim()
-            .parse()
-            .unwrap();
-            user_move_col = input!("Invalid Input!!! Enter a col for the square you want to remove: ")
-            .trim()
-            .parse()
-            .unwrap();
+        while Board::check_user_input(&board, user_move_row, user_move_col) == false {
+            user_move_row =
+                input!("Invalid Input!!! Enter a row for the square you want to remove: ")
+                    .trim()
+                    .parse()
+                    .unwrap();
+            user_move_col =
+                input!("Invalid Input!!! Enter a col for the square you want to remove: ")
+                    .trim()
+                    .parse()
+                    .unwrap();
         }
         Board::chomp(&mut board, user_move_row, user_move_col);
         Board::print_board(&board);
@@ -54,8 +56,8 @@ fn main() {
                 winning_move.0, winning_move.1
             );
             Board::chomp(&mut board, winning_move.0, winning_move.1);
-        }else{
-            Board::chomp_furthest_right(&mut board);// Otherwise, stall by chomping as little as possible
+        } else {
+            Board::chomp_furthest_right(&mut board); // Otherwise, stall by chomping as little as possible
         }
 
         // display the board again after the AI played

@@ -48,10 +48,10 @@ impl Board {
 
     // Function to chomp the furthest right piece in the lowermost nonempty row
     // If no winning move is found
-    pub fn chomp_furthest_right(&mut self){
-        'outer:for r in (0..self.height).rev(){
-            for c in (0..self.width).rev(){
-                if self.squares[r][c]{
+    pub fn chomp_furthest_right(&mut self) {
+        'outer: for r in (0..self.height).rev() {
+            for c in (0..self.width).rev() {
+                if self.squares[r][c] {
                     self.squares[r][c] = false;
                     break 'outer;
                 }
@@ -111,8 +111,8 @@ impl Board {
         return false;
     }
 
-    pub fn check_user_input(&self, row:usize, col:usize) -> bool{
-        if self.squares[row][col] && row <= self.height-1 && col <= self.width-1{
+    pub fn check_user_input(&self, row: usize, col: usize) -> bool {
+        if self.squares[row][col] && row <= self.height - 1 && col <= self.width - 1 {
             return true;
         }
         return false;
