@@ -25,6 +25,11 @@ impl Board {
         }
     }
 
+    #[cfg(test)]
+    fn test_create_board(&self){
+        Self::create_board(6,7);
+        assert!(self.width <= MAX_WIDTH && self.height <= MAX_HEIGHT);
+    }
     // function to dispplay the board
     pub fn print_board(&self) {
         for row in 0..self.height {
@@ -45,7 +50,11 @@ impl Board {
             }
         }
     }
+    
+    #[cfg(test)]
+    fn test_chomp(){
 
+    }
     // Function to chomp the furthest right piece in the lowermost nonempty row
     // If no winning move is found
     pub fn chomp_furthest_right(&mut self) {
@@ -58,6 +67,8 @@ impl Board {
             }
         }
     }
+
+
     pub fn winning_move(&self) -> Option<(usize, usize)> {
         // Check whether the board state is already lost.
         //If so, then there is no winning move
@@ -88,7 +99,10 @@ impl Board {
         }
         return None;
     }
+    #[cfg(test)]
+    fn test_winning_move(){
 
+    }
     // Function to check if the game is over.
     // the board state is lost if the upper-left square is the only one left
     pub fn is_game_over(&self) -> bool {
