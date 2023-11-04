@@ -36,21 +36,9 @@ impl Board{
         }
     }
     pub fn chomp(&mut self,row:usize, col: usize){
-        if row < self.width && col < self.height{
-            for r in row..self.height{
-                for c in col..self.width{
-                    self.squares[r][c] = false;
-                }
-            }
-        }
-        else if row< self.width && col >= self.height{
-            for r in row..self.height{
-                self.squares[r][col] = false;
-            }
-        }
-        else{
+        for r in row..self.height{
             for c in col..self.width{
-                self.squares[row][c] = false;
+                self.squares[r][c] = false;
             }
         }
     }

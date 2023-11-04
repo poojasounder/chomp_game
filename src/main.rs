@@ -17,7 +17,7 @@ fn main(){
     let mut board = Board::create_board(width,height);
     Board::print_board(&board);
     let user_move_row: usize = input!("Enter a row for the square you want to remove: ").trim().parse().unwrap();
-    let user_move_col:usize = input!("Enter a col for the square you want to remove: ").trim().parse().unwrap();
+    let user_move_col: usize = input!("Enter a col for the square you want to remove: ").trim().parse().unwrap();
     
     Board::chomp(&mut board,user_move_row-1,user_move_col-1);
     Board::print_board(&board);
