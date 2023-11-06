@@ -1,29 +1,38 @@
 extern crate chomp_game;
 extern crate prompted;
 
+use chomp_game::MAX_HEIGHT;
+use chomp_game::MAX_WIDTH;
 use chomp_game::Board;
 use prompted::input;
+
+
 
 fn main() {
     println!("Welcome to my chomp game");
     println!("Let's create your custom board!");
 
     // read user input for their desired board size
-    let user_width = input!("Enter a width for the board: ");
-    let user_height = input!("Enter a height for the board: ");
+    let mut user_width = input!("Enter a width for the board: ").trim().parse().unwrap();
+    let mut user_height = input!("Enter a height for the board: ").trim().parse().unwrap();
 
-    // Convert the user input to usize
-    let width: usize = user_width.trim().parse().unwrap();
-    let height: usize = user_height.trim().parse().unwrap();
+    while user_width > MAX_WIDTH || user_height > MAX_HEIGHT{
+        println!();
+        println!("Invalid width or height!!!");
+        println!("Width must be lesser than or equal to {} AND Height must be lesser than or equal to {}", MAX_WIDTH,MAX_HEIGHT);
+
+        user_width = input!("Enter a width for the board: ").trim().parse().unwrap();
+        user_height = input!("Enter a height for the board: ").trim().parse().unwrap();
+    }
 
     // Create the board of the desired width and height
-    let mut board = Board::create_board(width, height);
+    let mut board = Board::create_board(user_width, user_height);
 
     // display the board
     Board::print_board(&board);
 
     // Run this loop till game is over
-    while Board::is_game_over(&board) == false {
+    'outer: while Board::is_game_over(&board) == false {
         // Ask the user which row and column they would want to chomp
         let mut user_move_row: usize = input!("Enter a row for the square you want to remove: ")
             .trim()
@@ -33,7 +42,11 @@ fn main() {
             .trim()
             .parse()
             .unwrap();
-
+        if user_move_row == 0 && user_move_col == 0 {
+            println!("Game Over");
+            println!("You Lose");
+            break;
+        }
         while Board::check_user_input(&board, user_move_row, user_move_col) == false {
             user_move_row =
                 input!("Invalid Input!!! Enter a row for the square you want to remove: ")
@@ -45,6 +58,11 @@ fn main() {
                     .trim()
                     .parse()
                     .unwrap();
+            if user_move_row == 0 && user_move_col == 0 {
+                println!("Game Over");
+                println!("You Lose");
+                break 'outer;
+            }
         }
         Board::chomp(&mut board, user_move_row, user_move_col);
         Board::print_board(&board);
