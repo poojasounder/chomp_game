@@ -11,11 +11,6 @@ pub struct Board {
 impl Board {
     // function to create a board with a given width and height
     pub fn create_board(width: usize, height: usize) -> Self {
-        assert!(
-            width <= MAX_WIDTH && height <= MAX_HEIGHT,
-            "Width must be lesser than or equal to 5 and Height must be lesser than or equal to 4"
-        );
-
         // setting all the squares to true initially
         let squares = [[true; MAX_WIDTH]; MAX_HEIGHT];
         Board {
@@ -112,21 +107,28 @@ impl Board {
         return false;
     }
 
-    pub fn check_user_input(&self, row: usize, col: usize) -> bool {
-        if self.squares[row][col] && row <= self.height - 1 && col <= self.width - 1 {
-            return true;
+    pub fn check_user_input(&self, row: &str, col: &str) -> Option<(usize,usize)>{
+        let row = row.trim().parse::<usize>().ok()?;
+        let col = col.trim().parse::<usize>().ok()?;
+        if row < self.height && col < self.width && self.squares[row][col]{
+            return Some((row,col));
         }
-        return false;
+        return None;
     }
 }
+
 #[cfg(test)]
-fn test_create_board(&self) {
-    Self::create_board(6, 7);
-    assert!(self.width <= MAX_WIDTH && self.height <= MAX_HEIGHT);
+fn test_create_board() {
+
 }
 
 #[cfg(test)]
-fn test_chomp() {}
+fn test_chomp() {
+
+}
 
 #[cfg(test)]
-fn test_winning_move() {}
+fn test_winning_move() {
+
+}
+

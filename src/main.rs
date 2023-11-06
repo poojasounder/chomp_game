@@ -29,56 +29,45 @@ fn main() {
     let mut board = Board::create_board(user_width, user_height);
 
     // display the board
-    Board::print_board(&board);
+    board.print_board();
 
     // Run this loop till game is over
-    'outer: while Board::is_game_over(&board) == false {
-        // Ask the user which row and column they would want to chomp
-        let mut user_move_row: usize = input!("Enter a row for the square you want to remove: ")
-            .trim()
-            .parse()
-            .unwrap();
-        let mut user_move_col: usize = input!("Enter a col for the square you want to remove: ")
-            .trim()
-            .parse()
-            .unwrap();
+    while board.is_game_over() == false {
+
+        let (user_move_row,user_move_col) = loop{
+            let user_move_row = input!("Enter a row for the square you want to remove: ");
+            let user_move_col = input!("Enter a col for the square you want to remove: ");
+            match board.check_user_input(&user_move_row,&user_move_col){
+                Some((user_move_row,user_move_col)) => break(user_move_row,user_move_col),
+                None => continue,
+            };
+        
+        };
         if user_move_row == 0 && user_move_col == 0 {
             println!("Game Over");
             println!("You Lose");
             break;
         }
-        while Board::check_user_input(&board, user_move_row, user_move_col) == false {
-            user_move_row =
-                input!("Invalid Input!!! Enter a row for the square you want to remove: ")
-                    .trim()
-                    .parse()
-                    .unwrap();
-            user_move_col =
-                input!("Invalid Input!!! Enter a col for the square you want to remove: ")
-                    .trim()
-                    .parse()
-                    .unwrap();
-            if user_move_row == 0 && user_move_col == 0 {
-                println!("Game Over");
-                println!("You Lose");
-                break 'outer;
-            }
-        }
-        Board::chomp(&mut board, user_move_row, user_move_col);
-        Board::print_board(&board);
+        board.chomp(user_move_row, user_move_col);
+        board.print_board();
 
+        if board.is_game_over(){
+            println!("You Win");
+            break;
+        }
         // Try to find a winning move. If there is one, chomp the winning_move
-        if let Some(winning_move) = Board::winning_move(&board) {
+        if let Some(winning_move) = board.winning_move() {
             println!(
                 "The winning move is: ({}, {})",
                 winning_move.0, winning_move.1
             );
-            Board::chomp(&mut board, winning_move.0, winning_move.1);
+            board.chomp(winning_move.0, winning_move.1);
         } else {
-            Board::chomp_furthest_right(&mut board); // Otherwise, stall by chomping as little as possible
+            board.chomp_furthest_right(); // Otherwise, stall by chomping as little as possible
         }
 
+        println!();
         // display the board again after the AI played
-        Board::print_board(&board);
+        board.print_board();
     }
 }
