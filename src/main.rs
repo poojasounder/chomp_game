@@ -34,6 +34,7 @@ fn main() {
     // Run this loop till game is over
     while board.is_game_over() == false {
 
+        // loop through till the user enters the correct row and column
         let (user_move_row,user_move_col) = loop{
             let user_move_row = input!("Enter a row for the square you want to remove: ");
             let user_move_col = input!("Enter a col for the square you want to remove: ");
@@ -43,6 +44,8 @@ fn main() {
             };
         
         };
+
+        // if the user eats the poisonous square, then they lose
         if user_move_row == 0 && user_move_col == 0 {
             println!("Game Over");
             println!("You Lose");
