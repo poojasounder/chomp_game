@@ -107,20 +107,18 @@ impl Board {
         return false;
     }
 
-    pub fn check_user_input(&self, row: &str, col: &str) -> Option<(usize,usize)>{
-
+    pub fn check_user_input(&self, row: &str, col: &str) -> Option<(usize, usize)> {
         // mentioning the type <usize> to parse because parse has one input type but many output types so we have to
         // explicitly mention what type we want
         // "collect" method also has similar problem as "parse"
         let row = row.trim().parse::<usize>().ok()?;
         let col = col.trim().parse::<usize>().ok()?;
-        if row < self.height && col < self.width && self.squares[row][col]{
-            return Some((row,col));
+        if row < self.height && col < self.width && self.squares[row][col] {
+            return Some((row, col));
         }
         return None;
     }
 }
-
 
 // testing my chomp game
 #[cfg(test)]
@@ -130,15 +128,15 @@ mod tests {
     #[test]
     fn test_create_board() {
         let board = Board::create_board(5, 4);
-        assert_eq!(board.width,5);
-        assert_eq!(board.height,4);
+        assert_eq!(board.width, 5);
+        assert_eq!(board.height, 4);
     }
 
     #[test]
     fn test_chomp() {
         let mut board = Board::create_board(5, 4);
-        board.chomp(3,4);
-        assert_eq!(board.squares[3][4],false);
+        board.chomp(3, 4);
+        assert_eq!(board.squares[3][4], false);
     }
 
     #[test]
@@ -161,11 +159,9 @@ mod tests {
         let invalid_input = board.check_user_input("3", "2");
         assert_eq!(invalid_input, None);
 
-        board.chomp(1,1);
+        board.chomp(1, 1);
         //Test to check if the square that is alr eaten is an invlid input
         let invalid_input = board.check_user_input("1", "1");
         assert_eq!(invalid_input, None);
-
     }
 }
-
