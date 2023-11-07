@@ -20,8 +20,8 @@ Simply enter "cargo run"
 *** My row and column index starts from 0 ***
 
 
-*** Test case to see that the user wins *** 
-For my info:
+*** Test case to see that the user wins ***
+For my info:(row,col)
 1,1
 0,3
 0,2

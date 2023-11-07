@@ -57,7 +57,7 @@ impl Board {
     pub fn winning_move(&self) -> Option<(usize, usize)> {
         // Check whether the board state is already lost.
         //If so, then there is no winning move
-        if self.is_game_over() == true {
+        if self.is_game_over() {
             return None;
         }
 
@@ -76,13 +76,13 @@ impl Board {
                     //if winning_move outputs a winning_move for new_board
                     //then this move is not a winning_move . Continue to the next move
                     //Otherwise, this is the winning move and return it
-                    if new_board.winning_move() == None {
+                    if new_board.winning_move().is_none() {
                         return Some((r, c));
                     }
                 }
             }
         }
-        return None;
+        None
     }
 
     // Function to check if the game is over.
@@ -104,7 +104,7 @@ impl Board {
         if count == 1 && self.squares[0][0] {
             return true;
         }
-        return false;
+        false
     }
 
     pub fn check_user_input(&self, row: &str, col: &str) -> Option<(usize, usize)> {
@@ -116,7 +116,7 @@ impl Board {
         if row < self.height && col < self.width && self.squares[row][col] {
             return Some((row, col));
         }
-        return None;
+        None
     }
 }
 

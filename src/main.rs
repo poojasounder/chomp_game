@@ -42,7 +42,7 @@ fn main() {
     board.print_board();
 
     // Run this loop till game is over
-    while board.is_game_over() == false {
+    while !board.is_game_over() {
         // loop through till the user enters the correct row and column
         let (user_move_row, user_move_col) = loop {
             let user_move_row = input!("Enter a row for the square you want to remove: ");
